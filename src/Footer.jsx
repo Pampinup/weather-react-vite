@@ -4,7 +4,8 @@ export default function Footer() {
       <p>
         This project was coded by{" "}
         <a
-          href="https://desing-main-portfolio.netlify.app/#projects-index"
+          className="footer-link"
+          href="https://desing-main-portfolio.netlify.app/"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -12,6 +13,7 @@ export default function Footer() {
         </a>
         , check out the code on{" "}
         <a
+          className="footer-link"
           href="https://github.com/Pampinup/weather-react-vite/"
           target="_blank"
           rel="noopener noreferrer"
