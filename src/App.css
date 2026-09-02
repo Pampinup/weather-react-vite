@@ -26,7 +26,6 @@
   --font-heading: Georgia, "Times New Roman", serif;
 }
 
-
 /* =========================
    APP
 ========================= */
@@ -41,7 +40,6 @@
   font-family: var(--font-body);
 }
 
-
 /* =========================
    TITLE
 ========================= */
@@ -54,7 +52,6 @@
   letter-spacing: 2px;
   color: var(--color-text-primary);
 }
-
 
 /* =========================
    SEARCH
@@ -96,8 +93,7 @@
 .Search input[type="search"]:focus {
   border-color: var(--color-placeholder);
 
-  box-shadow:
-    0 0 0 4px rgba(198, 207, 207, 0.35);
+  box-shadow: 0 0 0 4px rgba(198, 207, 207, 0.35);
 }
 
 .Search input[type="submit"] {
@@ -127,7 +123,6 @@
   transform: translateY(0);
 }
 
-
 /* =========================
    WEATHER CARD
 ========================= */
@@ -154,7 +149,6 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
-
 
 /* =========================
    WEATHER INFORMATION
@@ -197,22 +191,22 @@
 .Weather li:last-child {
   grid-column: 1 / -1;
   background-color: transparent;
+  padding: 0;
 }
-
 
 /* =========================
    WEATHER ICON
 ========================= */
 
-.Weather img {
-  width: 90px;
-  height: 90px;
-
-  object-fit: contain;
-
-  margin-top: 5px;
+.weather-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 90px;
+  line-height: 1;
+  color: var(--color-accent);
 }
-
 
 /* =========================
    FOOTER
@@ -236,7 +230,6 @@
   text-decoration: underline;
 }
 
-
 /* =========================
    LINKS
 ========================= */
@@ -251,7 +244,6 @@ a:hover {
   text-decoration: underline;
 }
 
-
 /* =========================
    LOADER
 ========================= */
@@ -263,7 +255,6 @@ a:hover {
   align-items: center;
   justify-content: center;
 }
-
 
 /* =========================
    ERROR
@@ -282,13 +273,11 @@ a:hover {
   font-size: 16px;
 }
 
-
 /* =========================
    TABLET
 ========================= */
 
 @media (max-width: 768px) {
-
   .App {
     padding: 45px 20px;
   }
@@ -303,13 +292,11 @@ a:hover {
   }
 }
 
-
 /* =========================
    MOBILE
 ========================= */
 
 @media (max-width: 576px) {
-
   .App {
     padding: 35px 15px;
   }

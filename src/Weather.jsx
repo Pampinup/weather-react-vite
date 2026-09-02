@@ -2,6 +2,68 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 
+import {
+  WiDaySunny,
+  WiNightClear,
+  WiDayCloudy,
+  WiCloudy,
+  WiRain,
+  WiDayRain,
+  WiSnow,
+  WiThunderstorm,
+  WiFog,
+} from "react-icons/wi";
+
+function WeatherIcon({ description, icon }) {
+  if (!description) {
+    return null;
+  }
+
+  const isDay = icon?.endsWith("d");
+
+  if (description.includes("clear")) {
+    return isDay ? <WiDaySunny /> : <WiNightClear />;
+  }
+
+  if (description.includes("few clouds")) {
+    return <WiDayCloudy />;
+  }
+
+  if (description.includes("thunderstorm")) {
+    return <WiThunderstorm />;
+  }
+
+  if (description.includes("snow")) {
+    return <WiSnow />;
+  }
+
+  if (description.includes("rain")) {
+    if (description.includes("shower") || description.includes("light rain")) {
+      return <WiDayRain />;
+    }
+
+    return <WiRain />;
+  }
+
+  if (
+    description.includes("mist") ||
+    description.includes("fog") ||
+    description.includes("haze")
+  ) {
+    return <WiFog />;
+  }
+
+  if (
+    description.includes("scattered clouds") ||
+    description.includes("broken clouds") ||
+    description.includes("overcast clouds")
+  ) {
+    return <WiCloudy />;
+  }
+
+  return isDay ? <WiDaySunny /> : <WiNightClear />;
+}
+
 export default function Weather({ city, setError, error }) {
   const [loading, setLoading] = useState(false);
   const [temperature, setTemperature] = useState(null);
@@ -67,7 +129,7 @@ export default function Weather({ city, setError, error }) {
             height="80"
             width="80"
             radius="9"
-            color="#e057a2"
+            color="#8f7660"
             ariaLabel="three-dots-loading"
             wrapperStyle={{ margin: "20px" }}
             wrapperClass="custom-loader"
@@ -93,12 +155,9 @@ export default function Weather({ city, setError, error }) {
             <li>Wind: {wind !== null ? `${wind} m/s` : "--"}</li>
 
             <li>
-              {icon && (
-                <img
-                  src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
-                  alt={description}
-                />
-              )}
+              <div className="weather-icon">
+                <WeatherIcon description={description} icon={icon} />
+              </div>
             </li>
           </ul>
         </>

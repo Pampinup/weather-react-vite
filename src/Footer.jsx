@@ -11,7 +11,7 @@ export default function Footer() {
         >
           Pam Ortega
         </a>
-        , check out the code on{" "}
+        and is open-source{" "}
         <a
           className="footer-link"
           href="https://github.com/Pampinup/weather-react-vite/"
