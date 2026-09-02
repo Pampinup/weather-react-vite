@@ -14,31 +14,36 @@ import {
   WiFog,
 } from "react-icons/wi";
 
+/* =========================
+   WEATHER ICON
+========================= */
+
 function WeatherIcon({ description, icon }) {
   if (!description) {
     return null;
   }
 
+  const condition = description.toLowerCase();
   const isDay = icon?.endsWith("d");
 
-  if (description.includes("clear")) {
+  if (condition.includes("clear")) {
     return isDay ? <WiDaySunny /> : <WiNightClear />;
   }
 
-  if (description.includes("few clouds")) {
-    return <WiDayCloudy />;
+  if (condition.includes("few clouds")) {
+    return isDay ? <WiDayCloudy /> : <WiCloudy />;
   }
 
-  if (description.includes("thunderstorm")) {
+  if (condition.includes("thunderstorm")) {
     return <WiThunderstorm />;
   }
 
-  if (description.includes("snow")) {
+  if (condition.includes("snow")) {
     return <WiSnow />;
   }
 
-  if (description.includes("rain")) {
-    if (description.includes("shower") || description.includes("light rain")) {
+  if (condition.includes("rain")) {
+    if (condition.includes("shower") || condition.includes("light rain")) {
       return <WiDayRain />;
     }
 
@@ -46,23 +51,27 @@ function WeatherIcon({ description, icon }) {
   }
 
   if (
-    description.includes("mist") ||
-    description.includes("fog") ||
-    description.includes("haze")
+    condition.includes("mist") ||
+    condition.includes("fog") ||
+    condition.includes("haze")
   ) {
     return <WiFog />;
   }
 
   if (
-    description.includes("scattered clouds") ||
-    description.includes("broken clouds") ||
-    description.includes("overcast clouds")
+    condition.includes("scattered clouds") ||
+    condition.includes("broken clouds") ||
+    condition.includes("overcast clouds")
   ) {
     return <WiCloudy />;
   }
 
   return isDay ? <WiDaySunny /> : <WiNightClear />;
 }
+
+/* =========================
+   WEATHER COMPONENT
+========================= */
 
 export default function Weather({ city, setError, error }) {
   const [loading, setLoading] = useState(false);
@@ -72,6 +81,10 @@ export default function Weather({ city, setError, error }) {
   const [wind, setWind] = useState(null);
   const [icon, setIcon] = useState(null);
   const [info, setInfo] = useState("");
+
+  /* =========================
+     GET WEATHER DATA
+  ========================= */
 
   useEffect(() => {
     if (!city) {
@@ -86,7 +99,7 @@ export default function Weather({ city, setError, error }) {
 
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
-    function showTemperature(response) {
+    function showWeather(response) {
       setTemperature(response.data.main.temp);
       setDescription(response.data.weather[0].description);
       setHumidity(response.data.main.humidity);
@@ -110,8 +123,12 @@ export default function Weather({ city, setError, error }) {
       setInfo("");
     }
 
-    axios.get(url).then(showTemperature).catch(handleError);
+    axios.get(url).then(showWeather).catch(handleError);
   }, [city, setError]);
+
+  /* =========================
+     ERROR MESSAGE
+  ========================= */
 
   if (error) {
     return (
@@ -120,6 +137,10 @@ export default function Weather({ city, setError, error }) {
       </div>
     );
   }
+
+  /* =========================
+     WEATHER DISPLAY
+  ========================= */
 
   return (
     <div className="Weather">

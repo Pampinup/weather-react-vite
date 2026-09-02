@@ -1,13 +1,22 @@
-/* Global styles */
+/* =========================
+   GLOBAL STYLES
+========================= */
 
 * {
   box-sizing: border-box;
 }
 
+
+/* =========================
+   BODY
+========================= */
+
 body {
   margin: 0;
+
   min-width: 320px;
   min-height: 100vh;
+
   font-family: Arial, sans-serif;
 
   background: linear-gradient(
@@ -18,6 +27,11 @@ body {
     #dccdba 100%
   );
 }
+
+
+/* =========================
+   ROOT
+========================= */
 
 #root {
   min-height: 100vh;

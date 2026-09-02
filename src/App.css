@@ -4,6 +4,7 @@
 
 :root {
   /* Colors */
+
   --color-text-primary: #3f4a4d;
   --color-text-secondary: #596366;
 
@@ -22,6 +23,7 @@
   --color-white: #ffffff;
 
   /* Typography */
+
   --font-body: Arial, Helvetica, sans-serif;
   --font-heading: Georgia, "Times New Roman", serif;
 }
@@ -35,6 +37,8 @@
   max-width: 900px;
   margin: 0 auto;
   padding: 60px 24px;
+  box-sizing: border-box;
+
   text-align: center;
   color: var(--color-text-primary);
   font-family: var(--font-body);
@@ -46,10 +50,12 @@
 
 .App h1 {
   margin: 0 0 35px;
+
   font-family: var(--font-heading);
   font-size: 52px;
   font-weight: 400;
   letter-spacing: 2px;
+
   color: var(--color-text-primary);
 }
 
@@ -72,6 +78,7 @@
 .Search input[type="search"] {
   flex: 1;
   min-width: 0;
+
   padding: 15px 20px;
 
   border: 1px solid var(--color-border);
@@ -80,7 +87,9 @@
   background-color: rgba(250, 248, 244, 0.9);
   color: var(--color-text-primary);
 
+  font-family: var(--font-body);
   font-size: 16px;
+
   outline: none;
 
   transition: all 0.3s ease;
@@ -105,6 +114,7 @@
   background-color: var(--color-button);
   color: var(--color-white);
 
+  font-family: var(--font-body);
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.5px;
@@ -190,6 +200,7 @@
 
 .Weather li:last-child {
   grid-column: 1 / -1;
+
   background-color: transparent;
   padding: 0;
 }
@@ -202,9 +213,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
   margin-top: 8px;
+
   font-size: 90px;
   line-height: 1;
+
   color: var(--color-accent);
 }
 
@@ -217,17 +231,8 @@
   padding: 20px 0;
 
   font-size: 14px;
+
   color: var(--color-text-secondary);
-}
-
-.footer-link {
-  color: var(--color-accent);
-  text-decoration: none;
-}
-
-.footer-link:hover {
-  color: var(--color-accent-hover);
-  text-decoration: underline;
 }
 
 /* =========================
@@ -237,6 +242,8 @@
 a {
   color: var(--color-accent);
   text-decoration: none;
+
+  transition: color 0.3s ease;
 }
 
 a:hover {
