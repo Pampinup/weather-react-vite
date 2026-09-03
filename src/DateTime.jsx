@@ -33,8 +33,8 @@ export default function DateTime({ timezone }) {
 
   return (
     <div className="DateTime">
-      <span>{date}</span>
-      <span>{time}</span>
+      <span className="date">{date}</span>
+      <span className="time">{time}</span>
     </div>
   );
 }

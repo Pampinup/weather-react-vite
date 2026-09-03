@@ -24,8 +24,8 @@
 
   /* Typography */
 
-  --font-body: Arial, Helvetica, sans-serif;
-  --font-heading: Georgia, "Times New Roman", serif;
+  --font-body: "Space Grotesk", sans-serif;
+  --font-heading: "Cormorant Garamond", serif;
 }
 
 /* =========================
@@ -165,43 +165,38 @@
   text-align: left;
 }
 
-.Weather h2 {
-  margin: 0 0 8px;
-
+.weather-header h2 {
+  display: inline-block;
+  margin: 0;
   font-family: var(--font-heading);
-  font-size: 48px;
+  font-size: 52px;
   font-weight: 400;
-  line-height: 1.2;
-
+  line-height: 1;
   color: var(--color-text-primary);
 }
 
 .DateTime {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-
-  margin: 0 0 8px;
-
-  color: var(--color-text-secondary);
+  display: inline-flex;
+  float: right;
+  align-items: center;
+  margin-top: 0;
 }
 
-.DateTime span:first-child {
-  font-size: 15px;
-  letter-spacing: 0.2px;
+.DateTime .date {
+  display: none;
 }
 
-.DateTime span:last-child {
+.DateTime .time {
   font-family: var(--font-heading);
-  font-size: 17px;
+  font-size: 52px;
   color: var(--color-accent);
 }
 
 .weather-description {
-  margin: 0;
-
+  clear: both;
+  margin: 14px 0 0;
   font-size: 17px;
-  font-weight: 500;
+  font-weight: 400;
   text-transform: capitalize;
   color: var(--color-text-secondary);
 }
@@ -438,21 +433,30 @@ a {
     border-radius: 22px;
   }
 
-  .Weather h2 {
-    font-size: 27px;
+  .weather-header h2 {
+    display: block;
+    font-size: 38px;
   }
 
   .DateTime {
-    flex-direction: column;
-    gap: 2px;
+    float: none;
+    margin-top: 8px;
   }
 
-  .DateTime span:last-child {
-    font-size: 19px;
+  .DateTime .time {
+    font-size: 26px;
+  }
+
+  .DateTime .date {
+    display: inline;
+    margin-right: 8px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    color: var(--color-text-secondary);
   }
 
   .weather-description {
-    margin-top: 5px;
+    margin-top: 6px;
   }
 
   .weather-main {

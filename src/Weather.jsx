@@ -5,7 +5,6 @@ import DateTime from "./DateTime";
 import WeatherIcon from "./WeatherIcon";
 import Forecast from "./Forecast";
 
-
 /* =========================
    WEATHER COMPONENT
 ========================= */
@@ -33,9 +32,9 @@ export default function Weather({
   /* =========================
      GET WEATHER DATA
   ========================= */
+
   function showFahrenheit(event) {
     event.preventDefault();
-
     setTemperatureUnit(temperatureUnit === "C" ? "F" : "C");
   }
 
@@ -66,8 +65,8 @@ export default function Weather({
       // OpenWeather gives rainfall in mm for the last 1 hour.
       // If there is no rain data, we display 0 mm.
       setPrecipitation(response.data.rain?.["1h"] ?? 0);
-      setCoordinates(response.data.coord);
 
+      setCoordinates(response.data.coord);
       setLoading(false);
       setLocationLoading(false);
       setError(false);
@@ -172,26 +171,28 @@ export default function Weather({
         <div className="weather-details">
           <div className="weather-detail">
             <span>Humidity</span>
-
             <strong>{humidity !== null ? `${humidity}%` : "--"}</strong>
           </div>
 
           <div className="weather-detail">
             <span>Wind</span>
-
             <strong>{wind !== null ? `${wind.toFixed(1)} m/s` : "--"}</strong>
           </div>
 
           <div className="weather-detail">
             <span>Precipitation</span>
-
             <strong>
               {precipitation !== null ? `${precipitation} mm` : "--"}
             </strong>
           </div>
         </div>
       </div>
-      <Forecast coordinates={coordinates} timezone={timezone} />
+
+      <Forecast
+        coordinates={coordinates}
+        timezone={timezone}
+        temperatureUnit={temperatureUnit}
+      />
     </div>
   );
 }

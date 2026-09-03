@@ -28,10 +28,6 @@ export default function Forecast(props) {
         const dailyForecast = {};
 
         forecastList.forEach((item) => {
-          /*
-            Convert the forecast time to the city's
-            local time using OpenWeather's timezone.
-          */
           const localDate = new Date((item.dt + timezone) * 1000);
 
           const day = localDate.toISOString().split("T")[0];
@@ -45,6 +41,7 @@ export default function Forecast(props) {
           }
 
           dailyForecast[day].temperatures.push(item.main.temp);
+
           dailyForecast[day].weather.push(item);
         });
 
@@ -52,16 +49,13 @@ export default function Forecast(props) {
           .map((day) => {
             const temperatures = day.temperatures;
 
-            /*
-              Find the forecast closest to midday
-              in the city's local time.
-            */
             const middayForecast = day.weather.reduce((closest, item) => {
               const itemLocalDate = new Date((item.dt + timezone) * 1000);
 
               const closestLocalDate = new Date((closest.dt + timezone) * 1000);
 
-              const itemHour = itemLocalDate.getUTCHours(); /* mid day weather pronostic */ 
+              const itemHour = itemLocalDate.getUTCHours();
+
               const closestHour = closestLocalDate.getUTCHours();
 
               return Math.abs(itemHour - 12) < Math.abs(closestHour - 12)
@@ -80,10 +74,6 @@ export default function Forecast(props) {
               weather: [middayForecast.weather[0]],
             };
           })
-
-          /*
-            Remove today and show the next five days.
-          */
           .slice(1, 6);
 
         setForecast(forecastDays);
@@ -103,7 +93,11 @@ export default function Forecast(props) {
         {forecast.map(function (dailyForecast, index) {
           return (
             <div className="col" key={index}>
-              <ForecastDay data={dailyForecast} timezone={props.timezone} />
+              <ForecastDay
+                data={dailyForecast}
+                timezone={props.timezone}
+                temperatureUnit={props.temperatureUnit}
+              />
             </div>
           );
         })}

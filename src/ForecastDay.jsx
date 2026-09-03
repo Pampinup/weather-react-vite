@@ -1,14 +1,24 @@
 import WeatherIcon from "./WeatherIcon";
 
 export default function ForecastDay(props) {
+  function convertTemperature(temperature) {
+    if (props.temperatureUnit === "F") {
+      return Math.round((temperature * 9) / 5 + 32);
+    }
+
+    return Math.round(temperature);
+  }
+
   function maxTemperature() {
-    const temperature = Math.round(props.data.temp.max);
-    return `${temperature}°C`;
+    const temperature = convertTemperature(props.data.temp.max);
+
+    return `${temperature}°${props.temperatureUnit}`;
   }
 
   function minTemperature() {
-    const temperature = Math.round(props.data.temp.min);
-    return `${temperature}°C`;
+    const temperature = convertTemperature(props.data.temp.min);
+
+    return `${temperature}°${props.temperatureUnit}`;
   }
 
   function getDayOfWeek() {
