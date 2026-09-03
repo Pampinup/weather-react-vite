@@ -85,6 +85,7 @@ export default function Weather({
   const [loading, setLoading] = useState(false);
   const [temperature, setTemperature] = useState(null);
   const [description, setDescription] = useState(null);
+  const [temperatureUnit, setTemperatureUnit] = useState("C");
   const [humidity, setHumidity] = useState(null);
   const [wind, setWind] = useState(null);
   const [precipitation, setPrecipitation] = useState(null);
@@ -95,6 +96,11 @@ export default function Weather({
   /* =========================
      GET WEATHER DATA
   ========================= */
+  function showFahrenheit(event) {
+    event.preventDefault();
+
+    setTemperatureUnit(temperatureUnit === "C" ? "F" : "C");
+  }
 
   useEffect(() => {
     if (!city && !userLocation) {
@@ -214,7 +220,13 @@ export default function Weather({
           </div>
 
           <div className="temperature">
-            {temperature !== null ? `${Math.round(temperature)}°C` : "--"}
+            {temperature !== null && (
+              <a className="temperature" href="/" onClick={showFahrenheit}>
+                {temperatureUnit === "C"
+                  ? `${Math.round(temperature)}°C`
+                  : `${Math.round((temperature * 9) / 5 + 32)}°F`}
+              </a>
+            )}
           </div>
         </div>
 

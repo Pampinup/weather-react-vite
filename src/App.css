@@ -249,6 +249,14 @@
 
   color: var(--color-text-primary);
 }
+a.temperature {
+  text-decoration: none;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
+a.temperature:hover {
+  color: var(--color-accent-hover);
+}
 
 /* =========================
    WEATHER DETAILS
@@ -329,15 +337,17 @@
 /* =========================
    LINKS
 ========================= */
-
 a {
+  text-decoration: none;
+}
+.footer-link {
   color: var(--color-accent);
   text-decoration: none;
 
   transition: color 0.3s ease;
 }
 
-a:hover {
+.footer-link:hover {
   color: var(--color-accent-hover);
   text-decoration: underline;
 }
