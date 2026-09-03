@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
+import DateTime from "./DateTime";
 
 import {
   WiDaySunny,
@@ -79,8 +80,10 @@ export default function Weather({ city, setError, error }) {
   const [description, setDescription] = useState(null);
   const [humidity, setHumidity] = useState(null);
   const [wind, setWind] = useState(null);
+  const [precipitation, setPrecipitation] = useState(null);
   const [icon, setIcon] = useState(null);
   const [info, setInfo] = useState("");
+  const [timezone, setTimezone] = useState(null);
 
   /* =========================
      GET WEATHER DATA
@@ -105,7 +108,12 @@ export default function Weather({ city, setError, error }) {
       setHumidity(response.data.main.humidity);
       setWind(response.data.wind.speed);
       setIcon(response.data.weather[0].icon);
-      setInfo(`Current weather in ${response.data.name}`);
+      setInfo(`Weather in ${response.data.name}`);
+      setTimezone(response.data.timezone);
+
+      // OpenWeather gives rainfall in mm for the last 1 hour.
+      // If there is no rain data, we display 0 mm.
+      setPrecipitation(response.data.rain?.["1h"] ?? 0);
 
       setLoading(false);
       setError(false);
@@ -119,8 +127,10 @@ export default function Weather({ city, setError, error }) {
       setDescription(null);
       setHumidity(null);
       setWind(null);
+      setPrecipitation(null);
       setIcon(null);
       setInfo("");
+      setTimezone(null);
     }
 
     axios.get(url).then(showWeather).catch(handleError);
@@ -161,26 +171,46 @@ export default function Weather({ city, setError, error }) {
 
       {!loading && (
         <>
-          <h2>{info}</h2>
+          <div className="weather-header">
+            <h2>{info}</h2>
 
-          <ul>
-            <li>
-              Temperature:{" "}
-              {temperature !== null ? `${Math.round(temperature)}°C` : "--"}
-            </li>
+            <DateTime timezone={timezone} />
 
-            <li>Description: {description || "--"}</li>
+            <p className="weather-description">{description || "--"}</p>
+          </div>
 
-            <li>Humidity: {humidity !== null ? `${humidity}%` : "--"}</li>
-
-            <li>Wind: {wind !== null ? `${wind} m/s` : "--"}</li>
-
-            <li>
+          <div className="weather-main">
+            <div className="temperature-section">
               <div className="weather-icon">
                 <WeatherIcon description={description} icon={icon} />
               </div>
-            </li>
-          </ul>
+
+              <div className="temperature">
+                {temperature !== null ? `${Math.round(temperature)}°C` : "--"}
+              </div>
+            </div>
+
+            <div className="weather-details">
+              <div className="weather-detail">
+                <span>Humidity</span>
+                <strong>{humidity !== null ? `${humidity}%` : "--"}</strong>
+              </div>
+
+              <div className="weather-detail">
+                <span>Wind</span>
+                <strong>
+                  {wind !== null ? `${wind.toFixed(1)} m/s` : "--"}
+                </strong>
+              </div>
+
+              <div className="weather-detail">
+                <span>Precipitation</span>
+                <strong>
+                  {precipitation !== null ? `${precipitation} mm` : "--"}
+                </strong>
+              </div>
+            </div>
+          </div>
         </>
       )}
     </div>
