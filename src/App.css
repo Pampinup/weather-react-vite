@@ -333,6 +333,16 @@ a.temperature:hover {
 
   color: var(--color-text-secondary);
 }
+.react-logo {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+
+  margin: 0 4px -2px;
+
+  background-image: url("./assets/react-logo.svg");
+  background-size: cover;
+}
 
 /* =========================
    LINKS
