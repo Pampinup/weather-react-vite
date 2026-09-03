@@ -6,6 +6,7 @@ import Footer from "./Footer";
 
 import "./App.css";
 
+
 export default function App() {
   const [city, setCity] = useState("");
   const [userLocation, setUserLocation] = useState(null);
@@ -54,7 +55,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <h1>Weather App</h1>
+      <h1>Weather Forecast</h1>
 
       <Search
         setCity={setCity}
@@ -70,6 +71,8 @@ export default function App() {
         setError={setError}
         error={error}
       />
+
+      
 
       <Footer />
     </div>

@@ -2,73 +2,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 import DateTime from "./DateTime";
+import WeatherIcon from "./WeatherIcon";
+import Forecast from "./Forecast";
 
-import {
-  WiDaySunny,
-  WiNightClear,
-  WiDayCloudy,
-  WiCloudy,
-  WiRain,
-  WiDayRain,
-  WiSnow,
-  WiThunderstorm,
-  WiFog,
-} from "react-icons/wi";
-
-/* =========================
-   WEATHER ICON
-========================= */
-
-function WeatherIcon({ description, icon }) {
-  if (!description) {
-    return null;
-  }
-
-  const condition = description.toLowerCase();
-  const isDay = icon?.endsWith("d");
-
-  if (condition.includes("clear")) {
-    return isDay ? <WiDaySunny /> : <WiNightClear />;
-  }
-
-  if (condition.includes("few clouds")) {
-    return isDay ? <WiDayCloudy /> : <WiCloudy />;
-  }
-
-  if (condition.includes("thunderstorm")) {
-    return <WiThunderstorm />;
-  }
-
-  if (condition.includes("snow")) {
-    return <WiSnow />;
-  }
-
-  if (condition.includes("rain")) {
-    if (condition.includes("shower") || condition.includes("light rain")) {
-      return <WiDayRain />;
-    }
-
-    return <WiRain />;
-  }
-
-  if (
-    condition.includes("mist") ||
-    condition.includes("fog") ||
-    condition.includes("haze")
-  ) {
-    return <WiFog />;
-  }
-
-  if (
-    condition.includes("scattered clouds") ||
-    condition.includes("broken clouds") ||
-    condition.includes("overcast clouds")
-  ) {
-    return <WiCloudy />;
-  }
-
-  return isDay ? <WiDaySunny /> : <WiNightClear />;
-}
 
 /* =========================
    WEATHER COMPONENT
@@ -92,6 +28,7 @@ export default function Weather({
   const [icon, setIcon] = useState(null);
   const [info, setInfo] = useState("");
   const [timezone, setTimezone] = useState(null);
+  const [coordinates, setCoordinates] = useState(null);
 
   /* =========================
      GET WEATHER DATA
@@ -123,12 +60,13 @@ export default function Weather({
       setHumidity(response.data.main.humidity);
       setWind(response.data.wind.speed);
       setIcon(response.data.weather[0].icon);
-      setInfo(`Weather in ${response.data.name}`);
+      setInfo(response.data.name);
       setTimezone(response.data.timezone);
 
       // OpenWeather gives rainfall in mm for the last 1 hour.
       // If there is no rain data, we display 0 mm.
       setPrecipitation(response.data.rain?.["1h"] ?? 0);
+      setCoordinates(response.data.coord);
 
       setLoading(false);
       setLocationLoading(false);
@@ -148,6 +86,7 @@ export default function Weather({
       setIcon(null);
       setInfo("");
       setTimezone(null);
+      setCoordinates(null);
     }
 
     axios.get(url).then(showWeather).catch(handleError);
@@ -252,6 +191,7 @@ export default function Weather({
           </div>
         </div>
       </div>
+      <Forecast coordinates={coordinates} timezone={timezone} />
     </div>
   );
 }

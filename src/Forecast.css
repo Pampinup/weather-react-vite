@@ -1,0 +1,106 @@
+.Forecast {
+  margin-top: 45px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(181, 143, 118, 0.25);
+  text-align: center;
+}
+
+.Forecast .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 12px;
+}
+
+.Forecast .col {
+  flex: 1;
+  min-width: 0;
+}
+
+.WeatherForecast-day {
+  margin-bottom: 12px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.weather-icon-forecast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 55px;
+  margin-bottom: 10px;
+  font-size: 48px;
+  color: var(--color-accent);
+}
+
+.WeatherForecast-temperature {
+  font-size: 14px;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.WeatherForecast-temperature-max {
+  font-weight: 500;
+}
+
+.WeatherForecast-temperature-min {
+  opacity: 0.7;
+  margin-left: 5px;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 768px) {
+  .Forecast {
+    margin-top: 35px;
+    padding-top: 25px;
+  }
+
+  .Forecast .row {
+    gap: 8px;
+  }
+
+  .WeatherForecast-day {
+    font-size: 14px;
+  }
+
+  .weather-icon-forecast {
+    font-size: 42px;
+  }
+
+  .WeatherForecast-temperature {
+    font-size: 13px;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 576px) {
+  .Forecast {
+    margin-top: 30px;
+    padding-top: 25px;
+  }
+
+  .Forecast .row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px 10px;
+  }
+
+  .WeatherForecast-day {
+    font-size: 14px;
+  }
+
+  .weather-icon-forecast {
+    font-size: 45px;
+  }
+
+  .WeatherForecast-temperature {
+    font-size: 13px;
+  }
+}
