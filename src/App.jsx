@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
+
 import Search from "./Search";
 import Weather from "./Weather";
 import Footer from "./Footer";
-import "./App.css";
 
-/* =========================
-     GET USER LOCATION
-  ========================= */
+import "./App.css";
 
 export default function App() {
   const [city, setCity] = useState("");
   const [userLocation, setUserLocation] = useState(null);
+
+  const [locationLoading, setLocationLoading] = useState(
+    Boolean(navigator.geolocation),
+  );
+
   const [error, setError] = useState(false);
 
   /* =========================
@@ -31,11 +34,12 @@ export default function App() {
           lon: longitude,
         });
       },
+
       () => {
-        // If the user denies location access,
-        // the city search will still work.
         console.log("Location access was denied.");
+        setLocationLoading(false);
       },
+
       {
         enableHighAccuracy: false,
         timeout: 10000,
@@ -43,6 +47,10 @@ export default function App() {
       },
     );
   }, []);
+
+  /* =========================
+     APP
+  ========================= */
 
   return (
     <div className="App">
@@ -57,6 +65,8 @@ export default function App() {
       <Weather
         city={city}
         userLocation={userLocation}
+        locationLoading={locationLoading}
+        setLocationLoading={setLocationLoading}
         setError={setError}
         error={error}
       />

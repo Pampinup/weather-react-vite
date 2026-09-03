@@ -78,6 +78,7 @@ export default function Weather({
   city,
   userLocation,
   locationLoading,
+  setLocationLoading,
   setError,
   error,
 }) {
@@ -100,7 +101,7 @@ export default function Weather({
       return;
     }
 
-    // ESLint: loading is intentionally updated when the API request starts.
+    // Start loading while requesting weather data.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
 
@@ -124,11 +125,13 @@ export default function Weather({
       setPrecipitation(response.data.rain?.["1h"] ?? 0);
 
       setLoading(false);
+      setLocationLoading(false);
       setError(false);
     }
 
     function handleError() {
       setLoading(false);
+      setLocationLoading(false);
       setError(true);
 
       setTemperature(null);
@@ -142,7 +145,7 @@ export default function Weather({
     }
 
     axios.get(url).then(showWeather).catch(handleError);
-  }, [city, userLocation, setError]);
+  }, [city, userLocation, setLocationLoading, setError]);
 
   /* =========================
      ERROR MESSAGE
@@ -155,6 +158,10 @@ export default function Weather({
       </div>
     );
   }
+
+  /* =========================
+     LOADING
+  ========================= */
 
   const waitingForWeather =
     locationLoading ||
@@ -177,6 +184,10 @@ export default function Weather({
       </div>
     );
   }
+
+  /* =========================
+     NO WEATHER DATA
+  ========================= */
 
   if (!city && !userLocation) {
     return null;
@@ -210,16 +221,19 @@ export default function Weather({
         <div className="weather-details">
           <div className="weather-detail">
             <span>Humidity</span>
+
             <strong>{humidity !== null ? `${humidity}%` : "--"}</strong>
           </div>
 
           <div className="weather-detail">
             <span>Wind</span>
+
             <strong>{wind !== null ? `${wind.toFixed(1)} m/s` : "--"}</strong>
           </div>
 
           <div className="weather-detail">
             <span>Precipitation</span>
+
             <strong>
               {precipitation !== null ? `${precipitation} mm` : "--"}
             </strong>
