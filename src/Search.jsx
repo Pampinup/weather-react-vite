@@ -7,6 +7,7 @@ export default function Search(props) {
     event.preventDefault();
     if (city.trim() !== "") {
       props.setError(false);
+      props.setUserLocation(null);
       props.setCity(city.trim());
     }
   }

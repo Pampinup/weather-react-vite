@@ -74,7 +74,13 @@ function WeatherIcon({ description, icon }) {
    WEATHER COMPONENT
 ========================= */
 
-export default function Weather({ city, setError, error }) {
+export default function Weather({
+  city,
+  userLocation,
+  locationLoading,
+  setError,
+  error,
+}) {
   const [loading, setLoading] = useState(false);
   const [temperature, setTemperature] = useState(null);
   const [description, setDescription] = useState(null);
@@ -90,7 +96,7 @@ export default function Weather({ city, setError, error }) {
   ========================= */
 
   useEffect(() => {
-    if (!city) {
+    if (!city && !userLocation) {
       return;
     }
 
@@ -100,7 +106,9 @@ export default function Weather({ city, setError, error }) {
 
     const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    const url = userLocation
+      ? `https://api.openweathermap.org/data/2.5/weather?lat=${userLocation.lat}&lon=${userLocation.lon}&appid=${apiKey}&units=metric`
+      : `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
     function showWeather(response) {
       setTemperature(response.data.main.temp);
@@ -134,7 +142,7 @@ export default function Weather({ city, setError, error }) {
     }
 
     axios.get(url).then(showWeather).catch(handleError);
-  }, [city, setError]);
+  }, [city, userLocation, setError]);
 
   /* =========================
      ERROR MESSAGE
@@ -148,71 +156,76 @@ export default function Weather({ city, setError, error }) {
     );
   }
 
+  const waitingForWeather =
+    locationLoading ||
+    loading ||
+    ((city || userLocation) && temperature === null);
+
+  if (waitingForWeather) {
+    return (
+      <div className="loader">
+        <ThreeDots
+          height="80"
+          width="80"
+          radius="9"
+          color="#8f7660"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{ margin: "20px" }}
+          wrapperClass="custom-loader"
+          visible={true}
+        />
+      </div>
+    );
+  }
+
+  if (!city && !userLocation) {
+    return null;
+  }
+
   /* =========================
      WEATHER DISPLAY
   ========================= */
 
   return (
     <div className="Weather">
-      {loading && (
-        <div className="loader">
-          <ThreeDots
-            height="80"
-            width="80"
-            radius="9"
-            color="#8f7660"
-            ariaLabel="three-dots-loading"
-            wrapperStyle={{ margin: "20px" }}
-            wrapperClass="custom-loader"
-            visible={true}
-          />
+      <div className="weather-header">
+        <h2>{info}</h2>
+
+        <DateTime timezone={timezone} />
+
+        <p className="weather-description">{description || "--"}</p>
+      </div>
+
+      <div className="weather-main">
+        <div className="temperature-section">
+          <div className="weather-icon">
+            <WeatherIcon description={description} icon={icon} />
+          </div>
+
+          <div className="temperature">
+            {temperature !== null ? `${Math.round(temperature)}°C` : "--"}
+          </div>
         </div>
-      )}
 
-      {!loading && (
-        <>
-          <div className="weather-header">
-            <h2>{info}</h2>
-
-            <DateTime timezone={timezone} />
-
-            <p className="weather-description">{description || "--"}</p>
+        <div className="weather-details">
+          <div className="weather-detail">
+            <span>Humidity</span>
+            <strong>{humidity !== null ? `${humidity}%` : "--"}</strong>
           </div>
 
-          <div className="weather-main">
-            <div className="temperature-section">
-              <div className="weather-icon">
-                <WeatherIcon description={description} icon={icon} />
-              </div>
-
-              <div className="temperature">
-                {temperature !== null ? `${Math.round(temperature)}°C` : "--"}
-              </div>
-            </div>
-
-            <div className="weather-details">
-              <div className="weather-detail">
-                <span>Humidity</span>
-                <strong>{humidity !== null ? `${humidity}%` : "--"}</strong>
-              </div>
-
-              <div className="weather-detail">
-                <span>Wind</span>
-                <strong>
-                  {wind !== null ? `${wind.toFixed(1)} m/s` : "--"}
-                </strong>
-              </div>
-
-              <div className="weather-detail">
-                <span>Precipitation</span>
-                <strong>
-                  {precipitation !== null ? `${precipitation} mm` : "--"}
-                </strong>
-              </div>
-            </div>
+          <div className="weather-detail">
+            <span>Wind</span>
+            <strong>{wind !== null ? `${wind.toFixed(1)} m/s` : "--"}</strong>
           </div>
-        </>
-      )}
+
+          <div className="weather-detail">
+            <span>Precipitation</span>
+            <strong>
+              {precipitation !== null ? `${precipitation} mm` : "--"}
+            </strong>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
