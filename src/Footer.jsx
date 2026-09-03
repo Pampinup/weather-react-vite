@@ -9,7 +9,7 @@ export default function Footer() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Pam Ortega
+          Pam Ortega{" "}
         </a>
         and is open-source{" "}
         <a
