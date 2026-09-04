@@ -1,42 +1,122 @@
-.Forecast {
+/* =========================
+   WEEKLY FORECAST
+========================= */
+
+.WeeklyForecast {
   margin-top: 35px;
-  padding-top: 35px;
+}
+
+
+/* =========================
+   FORECAST TITLE
+========================= */
+
+.WeeklyForecast h3 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+  text-align: left;
+}
+
+
+/* =========================
+   FORECAST CONTAINER
+========================= */
+
+.Forecast {
+  margin-top: 0;
+  padding-top: 30px;
   border-top: 1px solid rgba(181, 143, 118, 0.25);
   text-align: center;
 }
 
+
+/* =========================
+   FORECAST DAYS
+========================= */
+
 .Forecast .row {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 10px;
   align-items: start;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  padding-bottom: 12px;
+
+  /* Scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(181, 143, 118, 0.55) transparent;
 }
 
 .Forecast .col {
   min-width: 0;
 }
 
+
+/* =========================
+   CHROME / EDGE / SAFARI
+========================= */
+
+.Forecast .row::-webkit-scrollbar {
+  height: 6px;
+}
+
+.Forecast .row::-webkit-scrollbar-track {
+  background: rgba(181, 143, 118, 0.08);
+  border-radius: 10px;
+}
+
+.Forecast .row::-webkit-scrollbar-thumb {
+  background: rgba(181, 143, 118, 0.55);
+  border-radius: 10px;
+}
+
+.Forecast .row::-webkit-scrollbar-thumb:hover {
+  background: rgba(143, 118, 96, 0.75);
+}
+
+
+/* =========================
+   DAY NAME
+========================= */
+
 .WeatherForecast-day {
-  font-family: var(--plain-font);
-  font-size: 16px;
+  margin-bottom: 12px;
+  font-family: var(--font-body);
+  font-size: 15px;
   font-weight: 500;
   color: var(--color-text-secondary);
-  margin-bottom: 12px;
 }
+
+
+/* =========================
+   WEATHER ICON
+========================= */
 
 .weather-icon-forecast {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 48px;
-  margin: 0 0 12px;
+  margin-bottom: 12px;
   font-size: 42px;
   line-height: 1;
   color: var(--color-accent);
 }
 
+
+/* =========================
+   TEMPERATURE
+========================= */
+
 .WeatherForecast-temperature {
-  font-family: var(--plain-font);
+  font-family: var(--font-body);
   font-size: 15px;
   font-weight: 500;
   color: var(--color-text-primary);
@@ -53,19 +133,41 @@
   font-weight: 400;
 }
 
+
 /* =========================
-   RESPONSIVE FORECAST
+   TABLET
 ========================= */
 
 @media (max-width: 768px) {
-  .Forecast {
+  .WeeklyForecast {
     margin-top: 30px;
+  }
+
+  .WeeklyForecast h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .Forecast {
     padding-top: 30px;
   }
 
   .Forecast .row {
-    grid-template-columns: repeat(5, minmax(90px, 1fr));
-    gap: 5px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    padding: 0 5px 12px;
+
+    scroll-snap-type: x mandatory;
+  }
+
+  .Forecast .col {
+    flex: 0 0 90px;
+    scroll-snap-align: start;
   }
 
   .WeatherForecast-day {
@@ -81,36 +183,38 @@
   }
 }
 
+
+/* =========================
+   MOBILE
+========================= */
+
 @media (max-width: 576px) {
-  .Forecast {
+  .WeeklyForecast {
     margin-top: 25px;
+  }
+
+  .WeeklyForecast h3 {
+    font-size: 25px;
+    margin-bottom: 15px;
+  }
+
+  .Forecast {
     padding-top: 25px;
     overflow: hidden;
   }
 
   .Forecast .row {
-    display: flex;
-    justify-content: flex-start;
     gap: 20px;
-    overflow-x: auto;
-    overflow-y: hidden;
-    padding: 0 5px 10px;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-
-  .Forecast .row::-webkit-scrollbar {
-    display: none;
+    padding: 0 5px 12px;
   }
 
   .Forecast .col {
     flex: 0 0 90px;
-    scroll-snap-align: start;
   }
 
   .WeatherForecast-day {
-    font-size: 15px;
     margin-bottom: 10px;
+    font-size: 15px;
   }
 
   .weather-icon-forecast {

@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+
 import axios from "axios";
 
 import "./Forecast.css";
+
 import ForecastDay from "./ForecastDay";
 
 export default function Forecast(props) {
@@ -13,71 +15,58 @@ export default function Forecast(props) {
     }
 
     const lat = props.coordinates.lat;
+
     const lon = props.coordinates.lon;
-    const timezone = props.timezone;
 
     const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
 
-    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    /*
+      One Call API 4.0 provides the daily forecast
+      directly, so we no longer need to group
+      the old 3-hour forecast ourselves.
+    */
+
+    const apiUrl = `https://api.openweathermap.org/data/4.0/onecall/timeline/1day?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 
     axios
       .get(apiUrl)
+
       .then((response) => {
-        const forecastList = response.data.list;
+        /*
+          One Call 4.0 returns daily data inside
+          response.data.data.
 
-        const dailyForecast = {};
+          We only need the next 5 days.
+        */
 
-        forecastList.forEach((item) => {
-          const localDate = new Date((item.dt + timezone) * 1000);
+        const forecastDays = response.data.data.slice(0, 5);
 
-          const day = localDate.toISOString().split("T")[0];
+        /*
+          Keep the same data structure that
+          ForecastDay.jsx already expects.
+        */
 
-          if (!dailyForecast[day]) {
-            dailyForecast[day] = {
-              dt: item.dt,
-              temperatures: [],
-              weather: [],
-            };
-          }
+        const formattedForecast = forecastDays.map((day) => {
+          return {
+            dt: day.dt,
 
-          dailyForecast[day].temperatures.push(item.main.temp);
+            temp: {
+              max: day.temp.max,
+              min: day.temp.min,
+            },
 
-          dailyForecast[day].weather.push(item);
+            weather: [
+              {
+                description: day.weather[0].description,
+                icon: day.weather[0].icon,
+              },
+            ],
+          };
         });
 
-        const forecastDays = Object.values(dailyForecast)
-          .map((day) => {
-            const temperatures = day.temperatures;
-
-            const middayForecast = day.weather.reduce((closest, item) => {
-              const itemLocalDate = new Date((item.dt + timezone) * 1000);
-
-              const closestLocalDate = new Date((closest.dt + timezone) * 1000);
-
-              const itemHour = itemLocalDate.getUTCHours();
-
-              const closestHour = closestLocalDate.getUTCHours();
-
-              return Math.abs(itemHour - 12) < Math.abs(closestHour - 12)
-                ? item
-                : closest;
-            });
-
-            return {
-              dt: day.dt,
-
-              temp: {
-                max: Math.max(...temperatures),
-                min: Math.min(...temperatures),
-              },
-
-              weather: [middayForecast.weather[0]],
-            };
-          })
-          .slice(1, 6);
-
-        setForecast(forecastDays);
+        setForecast(formattedForecast);
       })
+
       .catch(() => {
         setForecast(null);
       });
@@ -88,19 +77,23 @@ export default function Forecast(props) {
   }
 
   return (
-    <div className="Forecast">
-      <div className="row">
-        {forecast.map(function (dailyForecast, index) {
-          return (
-            <div className="col" key={index}>
-              <ForecastDay
-                data={dailyForecast}
-                timezone={props.timezone}
-                temperatureUnit={props.temperatureUnit}
-              />
-            </div>
-          );
-        })}
+    <div className="WeeklyForecast">
+      <h3>Weekly Forecast</h3>
+
+      <div className="Forecast">
+        <div className="row">
+          {forecast.map(function (dailyForecast, index) {
+            return (
+              <div className="col" key={index}>
+                <ForecastDay
+                  data={dailyForecast}
+                  timezone={props.timezone}
+                  temperatureUnit={props.temperatureUnit}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

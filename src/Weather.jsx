@@ -10,6 +10,8 @@ import WeatherIcon from "./WeatherIcon";
 
 import Forecast from "./Forecast";
 
+import HourlyForecast from "./HourlyForecast";
+
 /* =========================
    WEATHER COMPONENT
 ========================= */
@@ -229,6 +231,11 @@ export default function Weather({ city, userLocation, setError, error }) {
             FORECAST
         ========================= */}
 
+        <HourlyForecast
+          coordinates={coordinates}
+          timezone={timezone}
+          temperatureUnit={temperatureUnit}
+        />
         <Forecast
           coordinates={coordinates}
           timezone={timezone}

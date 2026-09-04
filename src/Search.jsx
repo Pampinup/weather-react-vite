@@ -1,5 +1,8 @@
 import { useState } from "react";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+
 export default function Search(props) {
   const [city, setCity] = useState("");
   const [locationLoading, setLocationLoading] = useState(false);
@@ -49,12 +52,10 @@ export default function Search(props) {
 
         setLocationLoading(false);
       },
-
       () => {
         props.setError(true);
         setLocationLoading(false);
       },
-
       {
         enableHighAccuracy: false,
         timeout: 10000,
@@ -84,7 +85,13 @@ export default function Search(props) {
           onClick={handleLocation}
           disabled={locationLoading}
         >
-          {locationLoading ? "Locating..." : "My location 🚩"}
+          {locationLoading ? (
+            "Locating..."
+          ) : (
+            <>
+              My <FontAwesomeIcon icon={faLocationDot} />
+            </>
+          )}
         </button>
       </form>
     </div>
