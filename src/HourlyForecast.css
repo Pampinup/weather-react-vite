@@ -18,7 +18,6 @@
   color: var(--color-text-primary);
 }
 
-
 /* =========================
    HOURLY FORECAST SCROLL
 ========================= */
@@ -36,7 +35,6 @@
   scrollbar-width: thin;
   scrollbar-color: rgba(181, 143, 118, 0.55) transparent;
 }
-
 
 /* =========================
    CHROME / EDGE / SAFARI
@@ -60,7 +58,6 @@
   background: rgba(143, 118, 96, 0.75);
 }
 
-
 /* =========================
    HOURLY FORECAST ITEM
 ========================= */
@@ -81,7 +78,6 @@
   text-align: center;
 }
 
-
 /* =========================
    TIME
 ========================= */
@@ -95,7 +91,6 @@
 
   color: var(--color-text-secondary);
 }
-
 
 /* =========================
    WEATHER ICON
@@ -115,7 +110,6 @@
   color: var(--color-accent);
 }
 
-
 /* =========================
    TEMPERATURE
 ========================= */
@@ -127,7 +121,6 @@
 
   color: var(--color-text-primary);
 }
-
 
 /* =========================
    MOBILE
