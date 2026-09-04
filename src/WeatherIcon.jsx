@@ -2,12 +2,21 @@ import {
   WiDaySunny,
   WiNightClear,
   WiDayCloudy,
+  WiNightAltPartlyCloudy,
+  WiDayCloudyHigh,
+  WiNightCloudyHigh,
   WiCloudy,
-  WiRain,
+  WiNightCloudy,
+  WiDayShowers,
+  WiNightAltShowers,
   WiDayRain,
-  WiSnow,
-  WiThunderstorm,
-  WiFog,
+  WiNightAltRain,
+  WiDayThunderstorm,
+  WiNightAltThunderstorm,
+  WiDaySnow,
+  WiNightAltSnow,
+  WiDayFog,
+  WiNightFog,
 } from "react-icons/wi";
 
 /* =========================
@@ -15,52 +24,103 @@ import {
 ========================= */
 
 export default function WeatherIcon({ description, icon }) {
-  if (!description) {
+  if (!description && !icon) {
     return null;
   }
 
-  const condition = description.toLowerCase();
+  /*
+    OpenWeather provides an icon code such as:
+
+    01d = clear sky, day
+    01n = clear sky, night
+    02d = few clouds, day
+    03d = scattered clouds, day
+    04d = broken/overcast clouds, day
+    09d = shower rain
+    10d = rain
+    11d = thunderstorm
+    13d = snow
+    50d = mist/fog
+  */
+
+  const iconCode = icon?.slice(0, 2);
   const isDay = icon?.endsWith("d");
 
-  if (condition.includes("clear")) {
+  /* =========================
+     CLEAR SKY
+  ========================= */
+
+  if (iconCode === "01") {
     return isDay ? <WiDaySunny /> : <WiNightClear />;
   }
 
-  if (condition.includes("few clouds")) {
-    return isDay ? <WiDayCloudy /> : <WiCloudy />;
+  /* =========================
+     FEW CLOUDS
+  ========================= */
+
+  if (iconCode === "02") {
+    return isDay ? <WiDayCloudy /> : <WiNightAltPartlyCloudy />;
   }
 
-  if (condition.includes("thunderstorm")) {
-    return <WiThunderstorm />;
+  /* =========================
+     SCATTERED CLOUDS
+  ========================= */
+
+  if (iconCode === "03") {
+    return isDay ? <WiDayCloudyHigh /> : <WiNightCloudyHigh />;
   }
 
-  if (condition.includes("snow")) {
-    return <WiSnow />;
+  /* =========================
+     BROKEN / OVERCAST CLOUDS
+  ========================= */
+
+  if (iconCode === "04") {
+    return isDay ? <WiCloudy /> : <WiNightCloudy />;
   }
 
-  if (condition.includes("rain")) {
-    if (condition.includes("shower") || condition.includes("light rain")) {
-      return <WiDayRain />;
-    }
+  /* =========================
+     SHOWER RAIN
+  ========================= */
 
-    return <WiRain />;
+  if (iconCode === "09") {
+    return isDay ? <WiDayShowers /> : <WiNightAltShowers />;
   }
 
-  if (
-    condition.includes("mist") ||
-    condition.includes("fog") ||
-    condition.includes("haze")
-  ) {
-    return <WiFog />;
+  /* =========================
+     RAIN
+  ========================= */
+
+  if (iconCode === "10") {
+    return isDay ? <WiDayRain /> : <WiNightAltRain />;
   }
 
-  if (
-    condition.includes("scattered clouds") ||
-    condition.includes("broken clouds") ||
-    condition.includes("overcast clouds")
-  ) {
-    return <WiCloudy />;
+  /* =========================
+     THUNDERSTORM
+  ========================= */
+
+  if (iconCode === "11") {
+    return isDay ? <WiDayThunderstorm /> : <WiNightAltThunderstorm />;
   }
+
+  /* =========================
+     SNOW
+  ========================= */
+
+  if (iconCode === "13") {
+    return isDay ? <WiDaySnow /> : <WiNightAltSnow />;
+  }
+
+  /* =========================
+     MIST / FOG
+  ========================= */
+
+  if (iconCode === "50") {
+    return isDay ? <WiDayFog /> : <WiNightFog />;
+  }
+
+  /* =========================
+     FALLBACK
+  ========================= */
 
   return isDay ? <WiDaySunny /> : <WiNightClear />;
 }

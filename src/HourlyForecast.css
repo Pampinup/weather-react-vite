@@ -1,0 +1,167 @@
+/* =========================
+   HOURLY FORECAST
+========================= */
+
+.HourlyForecast {
+  margin-top: 35px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(181, 143, 118, 0.25);
+  text-align: left;
+}
+
+.HourlyForecast h3 {
+  margin: 0 0 20px;
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+
+/* =========================
+   HOURLY FORECAST SCROLL
+========================= */
+
+.HourlyForecast-scroll {
+  display: flex;
+  gap: 12px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  padding: 5px 2px 12px;
+
+  /* Same scrollbar style as Weekly Forecast */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(181, 143, 118, 0.55) transparent;
+}
+
+
+/* =========================
+   CHROME / EDGE / SAFARI
+========================= */
+
+.HourlyForecast-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.HourlyForecast-scroll::-webkit-scrollbar-track {
+  background: rgba(181, 143, 118, 0.08);
+  border-radius: 10px;
+}
+
+.HourlyForecast-scroll::-webkit-scrollbar-thumb {
+  background: rgba(181, 143, 118, 0.55);
+  border-radius: 10px;
+}
+
+.HourlyForecast-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(143, 118, 96, 0.75);
+}
+
+
+/* =========================
+   HOURLY FORECAST ITEM
+========================= */
+
+.HourlyForecast-item {
+  flex: 0 0 78px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 12px 8px;
+
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 18px;
+
+  text-align: center;
+}
+
+
+/* =========================
+   TIME
+========================= */
+
+.HourlyForecast-time {
+  margin-bottom: 10px;
+
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+
+  color: var(--color-text-secondary);
+}
+
+
+/* =========================
+   WEATHER ICON
+========================= */
+
+.HourlyForecast-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 38px;
+  margin-bottom: 10px;
+
+  font-size: 34px;
+  line-height: 1;
+
+  color: var(--color-accent);
+}
+
+
+/* =========================
+   TEMPERATURE
+========================= */
+
+.HourlyForecast-temperature {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 500;
+
+  color: var(--color-text-primary);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 576px) {
+  .HourlyForecast {
+    margin-top: 25px;
+    padding-top: 25px;
+  }
+
+  .HourlyForecast h3 {
+    font-size: 25px;
+    margin-bottom: 15px;
+  }
+
+  .HourlyForecast-scroll {
+    gap: 10px;
+  }
+
+  .HourlyForecast-item {
+    flex-basis: 72px;
+    padding: 10px 6px;
+  }
+
+  .HourlyForecast-time {
+    font-size: 13px;
+  }
+
+  .HourlyForecast-icon {
+    font-size: 32px;
+  }
+
+  .HourlyForecast-temperature {
+    font-size: 22px;
+  }
+}
