@@ -70,67 +70,67 @@
 }
 
 .Search form {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto auto;
   gap: 10px;
   width: 100%;
 }
 
 .Search input[type="search"] {
-  flex: 1;
   min-width: 0;
-
+  width: 100%;
   padding: 15px 20px;
-
   border: 1px solid var(--color-border);
   border-radius: 30px;
-
   background-color: rgba(250, 248, 244, 0.9);
   color: var(--color-text-primary);
-
   font-family: var(--font-body);
   font-size: 16px;
-
   outline: none;
-
   transition: all 0.3s ease;
 }
 
-.Search input[type="search"]::placeholder {
-  color: var(--color-placeholder);
-}
-
-.Search input[type="search"]:focus {
-  border-color: var(--color-placeholder);
-
-  box-shadow: 0 0 0 4px rgba(198, 207, 207, 0.35);
-}
-
-.Search input[type="submit"] {
-  padding: 15px 28px;
-
+.Search input[type="submit"],
+.Search button {
+  padding: 15px 24px;
   border: none;
   border-radius: 30px;
-
   background-color: var(--color-button);
   color: var(--color-white);
-
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.5px;
-
   cursor: pointer;
-
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
-.Search input[type="submit"]:hover {
+.Search input[type="submit"]:hover,
+.Search button:hover {
   background-color: var(--color-button-hover);
   transform: translateY(-2px);
 }
 
-.Search input[type="submit"]:active {
+.Search input[type="submit"]:active,
+.Search button:active {
   transform: translateY(0);
+}
+.location-button {
+  display: block;
+  margin: 14px auto 0;
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  color: var(--color-accent);
+  font-family: var(--plain-font);
+  font-size: 14px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.location-button:hover {
+  color: var(--color-accent-hover);
 }
 
 /* =========================
@@ -413,17 +413,20 @@ a {
   }
 
   .Search form {
+    display: flex;
     flex-direction: column;
     gap: 10px;
   }
 
   .Search input[type="search"],
-  .Search input[type="submit"] {
+  .Search input[type="submit"],
+  .Search button {
     width: 100%;
     box-sizing: border-box;
   }
 
-  .Search input[type="submit"] {
+  .Search input[type="submit"],
+  .Search button {
     padding: 14px 20px;
   }
 
@@ -478,5 +481,46 @@ a {
 
   .weather-details {
     gap: 16px;
+  }
+}
+
+/* =========================
+   WEATHER LOADING OVERLAY
+========================= */
+
+.Weather {
+  position: relative;
+}
+
+.weather-content.is-loading {
+  visibility: hidden;
+}
+
+.weather-loading {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 10;
+
+  background: rgba(250, 248, 244, 0.55);
+
+  border-radius: 28px;
+
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+
+/* =========================
+   MOBILE LOADING OVERLAY
+========================= */
+
+@media (max-width: 576px) {
+  .weather-loading {
+    border-radius: 22px;
   }
 }
