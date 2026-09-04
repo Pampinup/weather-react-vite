@@ -1,19 +1,13 @@
+import reactLogo from "./assets/react.svg";
+
 export default function Footer() {
   return (
     <div className="Footer">
       <p>
-        <img
-          className="react-logo"
-          src="/src/assets/react.svg"
-          alt="React logo"
-        />{" "}
-        React Weather App{" "}
-        <img
-          className="react-logo"
-          src="/src/assets/react.svg"
-          alt="React logo"
-        />{" "}
-        was coded by{" "}
+        <img className="react-logo" src={reactLogo} alt="React logo" /> React
+        Weather App{" "}
+        <img className="react-logo" src={reactLogo} alt="React logo" /> was
+        coded by{" "}
         <a
           className="footer-link"
           href="https://desing-main-portfolio.netlify.app/"
