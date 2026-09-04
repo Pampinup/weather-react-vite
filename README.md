@@ -1,6 +1,6 @@
 # 🌤️ Weather App (React + OpenWeather)
 
-![Weather App Screenshot](./public/weather-app-preview.png)
+
 
 A responsive weather application built with **React and Vite**, using the **OpenWeather API** to display current weather conditions, hourly forecasts and a 5-day forecast for cities around the world.
 
