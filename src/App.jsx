@@ -1,7 +1,9 @@
 import { useState } from "react";
 
 import Search from "./Search";
+
 import Weather from "./Weather";
+
 import Footer from "./Footer";
 
 import "./App.css";
@@ -47,7 +49,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <h1>Weather Forecast</h1>
+      <h1 className="app-title">Weather App</h1>
 
       <Search
         setCity={setCity}

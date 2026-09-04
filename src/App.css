@@ -45,16 +45,17 @@
 }
 
 /* =========================
-   TITLE
+   APP TITLE
 ========================= */
 
-.App h1 {
+.app-title {
   margin: 0 0 35px;
 
   font-family: var(--font-heading);
-  font-size: 52px;
+  font-size: 48px;
   font-weight: 400;
-  letter-spacing: 2px;
+  line-height: 1.1;
+  letter-spacing: 1.5px;
 
   color: var(--color-text-primary);
 }
@@ -80,29 +81,47 @@
   min-width: 0;
   width: 100%;
   padding: 15px 20px;
+
   border: 1px solid var(--color-border);
   border-radius: 30px;
+
   background-color: rgba(250, 248, 244, 0.9);
   color: var(--color-text-primary);
+
   font-family: var(--font-body);
   font-size: 16px;
+
   outline: none;
   transition: all 0.3s ease;
+}
+
+.Search input[type="search"]::placeholder {
+  color: var(--color-placeholder);
+}
+
+.Search input[type="search"]:focus {
+  border-color: var(--color-placeholder);
+  box-shadow: 0 0 0 4px rgba(198, 207, 207, 0.35);
 }
 
 .Search input[type="submit"],
 .Search button {
   padding: 15px 24px;
+
   border: none;
   border-radius: 30px;
+
   background-color: var(--color-button);
   color: var(--color-white);
+
   font-family: var(--font-body);
   font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.5px;
+
   cursor: pointer;
   transition: all 0.3s ease;
+
   white-space: nowrap;
 }
 
@@ -116,21 +135,9 @@
 .Search button:active {
   transform: translateY(0);
 }
-.location-button {
-  display: block;
-  margin: 14px auto 0;
-  padding: 10px 20px;
-  border: none;
-  background: transparent;
-  color: var(--color-accent);
-  font-family: var(--plain-font);
-  font-size: 14px;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
 
-.location-button:hover {
-  color: var(--color-accent-hover);
+.Search button svg {
+  margin-left: 4px;
 }
 
 /* =========================
@@ -138,6 +145,8 @@
 ========================= */
 
 .Weather {
+  position: relative;
+
   width: 100%;
   max-width: 650px;
   min-height: 300px;
@@ -146,6 +155,7 @@
   box-sizing: border-box;
 
   background: rgba(250, 248, 244, 0.78);
+
   border: 1px solid rgba(255, 255, 255, 0.75);
   border-radius: 28px;
 
@@ -162,42 +172,89 @@
 ========================= */
 
 .weather-header {
+  display: grid;
+
+  grid-template-columns: 1fr auto;
+
+  grid-template-areas:
+    "city time"
+    "date time"
+    "description description";
+
+  column-gap: 20px;
+  row-gap: 0;
+
   text-align: left;
 }
 
+/* =========================
+   CITY
+========================= */
+
 .weather-header h2 {
-  display: inline-block;
+  grid-area: city;
+
   margin: 0;
+
   font-family: var(--font-heading);
-  font-size: 52px;
+  font-size: 60px;
   font-weight: 400;
   line-height: 1;
+
   color: var(--color-text-primary);
 }
 
+/* =========================
+   DATE & TIME
+========================= */
+
 .DateTime {
-  display: inline-flex;
-  float: right;
-  align-items: center;
-  margin-top: 0;
+  display: contents;
 }
+
+/* DATE */
 
 .DateTime .date {
-  display: none;
+  grid-area: date;
+
+  margin: 6px 0 0;
+
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.2;
+
+  color: var(--color-text-secondary);
 }
 
+/* TIME */
+
 .DateTime .time {
+  grid-area: time;
+
+  align-self: start;
+
+  margin: 0;
+
   font-family: var(--font-heading);
   font-size: 52px;
+  line-height: 1;
+
   color: var(--color-accent);
 }
 
+/* =========================
+   WEATHER DESCRIPTION
+========================= */
+
 .weather-description {
-  clear: both;
+  grid-area: description;
+
   margin: 14px 0 0;
+
   font-size: 17px;
   font-weight: 400;
   text-transform: capitalize;
+
   color: var(--color-text-secondary);
 }
 
@@ -244,11 +301,16 @@
 
   color: var(--color-text-primary);
 }
-a.temperature {
+
+a {
   text-decoration: none;
+}
+
+a.temperature {
   color: var(--color-text-primary);
   cursor: pointer;
 }
+
 a.temperature:hover {
   color: var(--color-accent-hover);
 }
@@ -263,6 +325,7 @@ a.temperature:hover {
   gap: 18px;
 
   padding-left: 25px;
+
   border-left: 1px solid rgba(181, 143, 118, 0.3);
 }
 
@@ -289,18 +352,6 @@ a.temperature:hover {
 }
 
 /* =========================
-   LOADER
-========================= */
-
-.loader {
-  min-height: 250px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* =========================
    ERROR
 ========================= */
 
@@ -313,6 +364,7 @@ a.temperature:hover {
   background-color: rgba(207, 193, 178, 0.35);
 
   color: var(--color-text-secondary);
+
   font-size: 16px;
 }
 
@@ -328,23 +380,20 @@ a.temperature:hover {
 
   color: var(--color-text-secondary);
 }
+
 .react-logo {
   display: inline-block;
+
   width: 16px;
   height: 16px;
 
   margin: 0 4px -2px;
-
-  background-image: url("./assets/react-logo.svg");
-  background-size: cover;
 }
 
 /* =========================
-   LINKS
+   FOOTER LINKS
 ========================= */
-a {
-  text-decoration: none;
-}
+
 .footer-link {
   color: var(--color-accent);
   text-decoration: none;
@@ -358,6 +407,32 @@ a {
 }
 
 /* =========================
+   WEATHER LOADING OVERLAY
+========================= */
+
+.weather-content.is-loading {
+  visibility: hidden;
+}
+
+.weather-loading {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 10;
+
+  background: rgba(250, 248, 244, 0.55);
+
+  border-radius: 28px;
+
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+/* =========================
    TABLET
 ========================= */
 
@@ -366,7 +441,7 @@ a {
     padding: 45px 20px;
   }
 
-  .App h1 {
+  .app-title {
     font-size: 44px;
     margin-bottom: 30px;
   }
@@ -375,9 +450,29 @@ a {
     padding: 35px 30px;
   }
 
-  .Weather h2 {
-    font-size: 30px;
+  /* =========================
+     TABLET WEATHER HEADER
+  ========================= */
+
+  .weather-header h2 {
+    font-size: 42px;
   }
+
+  .DateTime .time {
+    font-size: 42px;
+  }
+
+  .DateTime .date {
+    margin-top: 6px;
+  }
+
+  .weather-description {
+    margin-top: 14px;
+  }
+
+  /* =========================
+     TABLET MAIN WEATHER
+  ========================= */
 
   .weather-main {
     grid-template-columns: 1fr;
@@ -402,7 +497,7 @@ a {
     padding: 35px 15px;
   }
 
-  .App h1 {
+  .app-title {
     font-size: 38px;
     letter-spacing: 1px;
     margin-bottom: 25px;
@@ -436,31 +531,46 @@ a {
     border-radius: 22px;
   }
 
-  .weather-header h2 {
-    display: block;
-    font-size: 38px;
+  /* =========================
+     MOBILE WEATHER HEADER
+  ========================= */
+
+  .weather-header {
+    grid-template-columns: 1fr auto;
+
+    grid-template-areas:
+      "city time"
+      "date time"
+      "description description";
+
+    column-gap: 12px;
+    row-gap: 0;
   }
 
-  .DateTime {
-    float: none;
-    margin-top: 8px;
+  .weather-header h2 {
+    font-size: 38px;
+    line-height: 1;
   }
 
   .DateTime .time {
-    font-size: 26px;
+    font-size: 38px;
+    line-height: 1;
   }
 
   .DateTime .date {
-    display: inline;
-    margin-right: 8px;
-    font-family: var(--font-body);
+    margin-top: 6px;
+
     font-size: 15px;
-    color: var(--color-text-secondary);
+    line-height: 1.2;
   }
 
   .weather-description {
-    margin-top: 6px;
+    margin-top: 14px;
   }
+
+  /* =========================
+     MOBILE MAIN WEATHER
+  ========================= */
 
   .weather-main {
     margin-top: 30px;
@@ -482,44 +592,7 @@ a {
   .weather-details {
     gap: 16px;
   }
-}
 
-/* =========================
-   WEATHER LOADING OVERLAY
-========================= */
-
-.Weather {
-  position: relative;
-}
-
-.weather-content.is-loading {
-  visibility: hidden;
-}
-
-.weather-loading {
-  position: absolute;
-  inset: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  z-index: 10;
-
-  background: rgba(250, 248, 244, 0.55);
-
-  border-radius: 28px;
-
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-}
-
-
-/* =========================
-   MOBILE LOADING OVERLAY
-========================= */
-
-@media (max-width: 576px) {
   .weather-loading {
     border-radius: 22px;
   }
