@@ -3,18 +3,29 @@
 ========================= */
 
 .HourlyForecast {
+  width: 100%;
+  min-width: 0;
+
   margin-top: 35px;
   padding-top: 30px;
+
   border-top: 1px solid rgba(181, 143, 118, 0.25);
+
   text-align: left;
 }
 
+/* =========================
+   TITLE
+========================= */
+
 .HourlyForecast h3 {
   margin: 0 0 20px;
+
   font-family: var(--font-heading);
   font-size: 28px;
   font-weight: 400;
   line-height: 1.2;
+
   color: var(--color-text-primary);
 }
 
@@ -26,12 +37,17 @@
   display: flex;
   gap: 12px;
 
+  width: 100%;
+  min-width: 0;
+
   overflow-x: auto;
   overflow-y: hidden;
 
   padding: 5px 2px 12px;
 
-  /* Same scrollbar style as Weekly Forecast */
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+
   scrollbar-width: thin;
   scrollbar-color: rgba(181, 143, 118, 0.55) transparent;
 }
@@ -71,11 +87,16 @@
 
   padding: 12px 8px;
 
+  box-sizing: border-box;
+
   background: rgba(255, 255, 255, 0.35);
+
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-radius: 18px;
 
   text-align: center;
+
+  scroll-snap-align: start;
 }
 
 /* =========================
@@ -123,6 +144,43 @@
 }
 
 /* =========================
+   TABLET
+========================= */
+
+@media (max-width: 768px) {
+  .HourlyForecast {
+    margin-top: 30px;
+    padding-top: 28px;
+  }
+
+  .HourlyForecast h3 {
+    font-size: 27px;
+    margin-bottom: 18px;
+  }
+
+  .HourlyForecast-scroll {
+    gap: 10px;
+  }
+
+  .HourlyForecast-item {
+    flex: 0 0 calc((100% - 50px) / 6);
+    padding: 11px 6px;
+  }
+
+  .HourlyForecast-time {
+    font-size: 13px;
+  }
+
+  .HourlyForecast-icon {
+    font-size: 32px;
+  }
+
+  .HourlyForecast-temperature {
+    font-size: 23px;
+  }
+}
+
+/* =========================
    MOBILE
 ========================= */
 
@@ -139,22 +197,40 @@
 
   .HourlyForecast-scroll {
     gap: 10px;
+
+    padding: 4px 2px 12px;
+
+    /* Prevents the scroll area from creating
+       unwanted extra width on mobile */
+    max-width: 100%;
   }
 
   .HourlyForecast-item {
-    flex-basis: 72px;
-    padding: 10px 6px;
+    /*
+      Four complete cards fit inside the
+      available mobile width.
+    */
+    flex: 0 0 calc((100% - 30px) / 4);
+
+    padding: 10px 5px;
+
+    border-radius: 16px;
   }
 
   .HourlyForecast-time {
-    font-size: 13px;
+    margin-bottom: 8px;
+
+    font-size: 12px;
   }
 
   .HourlyForecast-icon {
-    font-size: 32px;
+    min-height: 34px;
+    margin-bottom: 8px;
+
+    font-size: 30px;
   }
 
   .HourlyForecast-temperature {
-    font-size: 22px;
+    font-size: 21px;
   }
 }
