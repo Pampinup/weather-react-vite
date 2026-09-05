@@ -139,7 +139,7 @@ export default function Forecast(props) {
   return (
     <div className="WeeklyForecast">
       <h3>
-        <span className="fivedays">5 - </span>Days Forecast
+        <span className="fivedays"> 5 </span>Days Forecast
       </h3>
 
       <div className="Forecast">
