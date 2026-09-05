@@ -636,10 +636,8 @@ a.temperature:hover {
 ========================= */
 
 @media (max-width: 576px) {
-
   body {
     background-attachment: scroll;
     background-position: center center;
   }
-
 }
