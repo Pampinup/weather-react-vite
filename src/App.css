@@ -1,4 +1,21 @@
 /* =========================
+   PAGE BACKGROUND
+========================= */
+
+body {
+  margin: 0;
+  min-height: 100vh;
+
+  background-image: url("./assets/weather-background.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  background-color: #d9d4cf;
+}
+
+/* =========================
    DESIGN SYSTEM
 ========================= */
 
@@ -372,13 +389,30 @@ a.temperature:hover {
    FOOTER
 ========================= */
 
+/* =========================
+   FOOTER
+========================= */
+
 .Footer {
-  margin-top: 50px;
-  padding: 20px 0;
+  width: fit-content;
+  max-width: 100%;
+
+  margin: 50px auto 0;
+  padding: 12px 22px;
 
   font-size: 14px;
+  color: var(--color-text-primary);
 
-  color: var(--color-text-secondary);
+  background: rgba(250, 248, 244, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 18px;
+
+  box-shadow:
+    0 8px 25px rgba(63, 74, 77, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .react-logo {
