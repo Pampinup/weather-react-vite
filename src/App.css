@@ -631,3 +631,15 @@ a.temperature:hover {
     border-radius: 22px;
   }
 }
+/* =========================
+   MOBILE BACKGROUND
+========================= */
+
+@media (max-width: 576px) {
+
+  body {
+    background-attachment: scroll;
+    background-position: center center;
+  }
+
+}
