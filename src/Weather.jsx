@@ -139,7 +139,7 @@ export default function Weather({ city, userLocation, setError, error }) {
 
   if (!city && !userLocation && temperature === null) {
     return;
-  }
+  } 
 
   /* =========================
      WEATHER DISPLAY
